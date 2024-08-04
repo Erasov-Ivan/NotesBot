@@ -1,0 +1,38 @@
+version: "3"
+services: 
+  database:
+    container_name: database
+    image: postgres:14.8-alpine3.18
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:  
+      test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  bot:
+    container_name: bot
+    depends_on: 
+      database:
+        condition: service_healthy
+      
+    build: /bot
+    env_file:
+     - .env
+
+  reminder:
+    container_name: reminder
+    depends_on: 
+      database:
+        condition: service_healthy
+      
+    build: /reminder
+    env_file:
+     - .env
+

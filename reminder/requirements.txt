@@ -1,0 +1,6 @@
+telethon
+asyncpg
+sqlalchemy
+nest-asyncio
+aioschedule
+python-dotenv

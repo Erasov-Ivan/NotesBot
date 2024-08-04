@@ -1,0 +1,6 @@
+asyncio
+aiogram
+asyncpg
+sqlalchemy
+nest-asyncio
+python-dotenv
